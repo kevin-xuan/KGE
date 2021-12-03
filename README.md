@@ -19,6 +19,7 @@ some required packages are included in *requirements.txt*.
 然后将log目录下的gowalla-transe-1637901500.zip解压
 
 TransE
+
 这部分代码是spatial threshold为0.2km所构造的KG
 ```
 python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1
@@ -29,20 +30,22 @@ python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -
 ```
 
 TransH
+
 这部分代码是spatial threshold为0.2km所构造的KG
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1 -load_ckpt_file gowalla-transe-1637901500.zip
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1 -load_ckpt_file gowalla-transe-1637901500.ckpt
 ```
 这部分代码是spatial threshold为3km，然后再取top 50所构造的KG
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.zip
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.ckpt
 ```
 TransR
+
 这部分代码是spatial threshold为0.2km所构造的KG
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1 -load_ckpt_file gowalla-transe-1637901500.zip
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1 -load_ckpt_file gowalla-transe-1637901500.ckpt
 ```
 这部分代码是spatial threshold为3km，然后再取top 50所构造的KG
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.zip
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.ckpt
 ```

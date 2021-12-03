@@ -35,7 +35,7 @@ python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -
 ```
 python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.ckpt
 ```
-TransR
+TransR(**用预训练好的TransE模型来继续训练**)
 
 这部分代码**scheme1**是spatial threshold为0.2km所构造的KG!我只提供了这部分的TransE预训练模型，即gowalla-transe-1637901500.ckpt，所以这部分可以直接运行！
 ```

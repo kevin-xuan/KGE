@@ -4,11 +4,10 @@ This is the code of the *Unifying Knowledge Graph Learning and Recommendation To
 
 ## Environment
 
-python 3.6
+* python 3.7
 
-Pytorch 0.3.x
+* Pytorch 1.8.0
 
-visdom if visualization flag is set to True.
 
 some required packages are included in *requirements.txt*.
 

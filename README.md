@@ -12,8 +12,8 @@
 some required packages are included in *requirements.txt*.
 
 ## Run codes
-先将datasets/gowalla/kg/scheme1和datasets/gowalla/kg/scheme2目录下的train.zip解压，得到train.txt文件
-然后将log目录下的gowalla-transe-1637901500.zip解压得到gowalla-transe-1637901500.ckpt!
+先将scheme1.7z和scheme2.7z压缩文件解压到datasets/gowalla/kg/scheme1和datasets/gowalla/kg/scheme2目录下，会得到4个txt文件！
+然后将gowalla-transe-1637901500.7z解压到log目录下，得到gowalla-transe-1637901500.ckpt!
 
 TransE
 

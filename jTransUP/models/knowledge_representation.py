@@ -127,67 +127,21 @@ def train_loop(FLAGS, model, trainer, train_dataset, eval_datasets,
 
     # New Training Loop
     pbar = None  # 这里是先evaluate再train
-    # pbar = tqdm(total=FLAGS.eval_interval_steps)  # 改成先train后evaluate
-    # pbar.set_description("Training")
+    pbar = tqdm(total=trainer.epoch_length * 20)  # 改成先train后evaluate
+    pbar.set_description("Training")
     total_loss = 0.0
+    model.train()
     model.enable_grad()
-    for _ in range(trainer.step, FLAGS.training_steps):  # 训练training_steps个epoch,每个epoch有很多个batch,总共100个epoch
 
-        if 0 < FLAGS.early_stopping_steps_to_wait < (trainer.step - trainer.best_step):
-            logger.info('No improvement after ' +
-                        str(FLAGS.early_stopping_steps_to_wait) +
-                        ' steps. Stopping training.')
-            if pbar is not None:
-                pbar.close()
-            break
-        if trainer.step % FLAGS.eval_interval_steps == 0:
-            if pbar is not None:
-                pbar.close()
-            total_loss /= FLAGS.eval_interval_steps
-            logger.info("train loss:{:.4f}!".format(total_loss))
+    for _ in range(trainer.step, trainer.epoch_length * 100):  # 训练training_steps个epoch,每个epoch有很多个batch,总共100个epoch
 
-            performances = []
-            for i, eval_data in enumerate(eval_datasets):
-                eval_head_dicts = None
-                eval_tail_dicts = None
-                if FLAGS.filter_wrong_corrupted:
-                    eval_head_dicts = [train_head_dict] + [tmp_data[4] for j, tmp_data in enumerate(eval_datasets) if
-                                                           j != i]
-                    eval_tail_dicts = [train_tail_dict] + [tmp_data[5] for j, tmp_data in enumerate(eval_datasets) if
-                                                           j != i]
-
-                performances.append(
-                    evaluate(FLAGS, model, entity_total, relation_total, eval_data[0], eval_data[1], eval_data[4],
-                             eval_data[5], eval_head_dicts, eval_tail_dicts, logger, eval_descending=False,
-                             is_report=is_report))
-
-            if trainer.step > 0 and len(performances) > 0:
-                is_best = trainer.new_performance(performances[0], performances)
-                # visuliazation
-                if vis is not None:
-                    vis.plot_many_stack({'KG Train Loss': total_loss},
-                                        win_name="Loss Curve")
-                    hit_vis_dict = {}
-                    meanrank_vis_dict = {}
-                    for i, performance in enumerate(performances):
-                        hit_vis_dict['KG Eval {} Hit'.format(i)] = performance[0]
-                        meanrank_vis_dict['KG Eval {} MeanRank'.format(i)] = performance[1]
-
-                    if is_best:
-                        log_str = ["Best performances in {} step!".format(trainer.best_step)]
-                        log_str += ["{} : {}.".format(s, "%.5f" % hit_vis_dict[s]) for s in hit_vis_dict]
-                        log_str += ["{} : {}.".format(s, "%.5f" % meanrank_vis_dict[s]) for s in meanrank_vis_dict]
-                        vis.log("\n".join(log_str), win_name="Best Performances")
-
-                    vis.plot_many_stack(hit_vis_dict, win_name="KG Hit Ratio@{}".format(FLAGS.topn))
-
-                    vis.plot_many_stack(meanrank_vis_dict, win_name="KG MeanRank")
-            # set model in training mode
-            pbar = tqdm(total=FLAGS.eval_interval_steps)
-            pbar.set_description("Training")
-            total_loss = 0.0
-            model.train()
-            model.enable_grad()
+        # if 0 < FLAGS.early_stopping_steps_to_wait < (trainer.step - trainer.best_step):
+        #     logger.info('No improvement after ' +
+        #                 str(FLAGS.early_stopping_steps_to_wait) +
+        #                 ' steps. Stopping training.')
+        #     if pbar is not None:
+        #         pbar.close()
+        #     break
 
         triple_batch = next(train_iter)
         ph, pt, pr, nh, nt, nr = getTrainTripleBatch(triple_batch, entity_total, all_head_dicts=all_head_dicts,
@@ -235,6 +189,57 @@ def train_loop(FLAGS, model, trainer, train_dataset, eval_datasets,
         total_loss += losses.data.item()
         # print('total loss: ', total_loss)
         pbar.update(1)
+
+        if trainer.step % (trainer.epoch_length * 20) == 0:
+            if pbar is not None:
+                pbar.close()
+            total_loss /= (trainer.epoch_length * 20)
+            logger.info("train loss:{:.4f}!".format(total_loss))
+
+            performances = []
+            for i, eval_data in enumerate(eval_datasets):
+                eval_head_dicts = None
+                eval_tail_dicts = None
+                if FLAGS.filter_wrong_corrupted:
+                    eval_head_dicts = [train_head_dict] + [tmp_data[4] for j, tmp_data in enumerate(eval_datasets) if
+                                                           j != i]
+                    eval_tail_dicts = [train_tail_dict] + [tmp_data[5] for j, tmp_data in enumerate(eval_datasets) if
+                                                           j != i]
+
+                performances.append(
+                    evaluate(FLAGS, model, entity_total, relation_total, eval_data[0], eval_data[1], eval_data[4],
+                             eval_data[5], eval_head_dicts, eval_tail_dicts, logger, eval_descending=False,
+                             is_report=is_report))
+
+            if trainer.step > 0 and len(performances) > 0:
+                is_best = trainer.new_performance(performances[0], performances)
+                # visualization
+                if vis is not None:
+                    vis.plot_many_stack({'KG Train Loss': total_loss},
+                                        win_name="Loss Curve")
+                    hit_vis_dict = {}
+                    meanrank_vis_dict = {}
+                    for i, performance in enumerate(performances):
+                        hit_vis_dict['KG Eval {} Hit'.format(i)] = performance[0]
+                        meanrank_vis_dict['KG Eval {} MeanRank'.format(i)] = performance[1]
+
+                    if is_best:
+                        log_str = ["Best performances in {} step!".format(trainer.best_step)]
+                        log_str += ["{} : {}.".format(s, "%.5f" % hit_vis_dict[s]) for s in hit_vis_dict]
+                        log_str += ["{} : {}.".format(s, "%.5f" % meanrank_vis_dict[s]) for s in meanrank_vis_dict]
+                        vis.log("\n".join(log_str), win_name="Best Performances")
+
+                    vis.plot_many_stack(hit_vis_dict, win_name="KG Hit Ratio@{}".format(FLAGS.topn))
+
+                    vis.plot_many_stack(meanrank_vis_dict, win_name="KG MeanRank")
+
+            # set model in training mode
+            pbar = tqdm(total=trainer.epoch_length * 20)
+            pbar.set_description("Training")
+            total_loss = 0.0
+            model.train()
+            model.enable_grad()
+
     trainer.save(trainer.checkpoint_path + '_final')
 
 

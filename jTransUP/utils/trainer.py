@@ -100,15 +100,15 @@ class ModelTrainer(object):
             self.best_dev_performance = performance_to_care
             is_best = True
         # Learning rate decay
-        if self.learning_rate_decay_when_no_progress != 1.0:
-            last_epoch_start = self.step - (self.step % self.epoch_length)
-            if self.step - last_epoch_start <= self.eval_interval_steps and self.best_step < (
-                    last_epoch_start - self.epoch_length):
-                self.logger.info('No improvement after one epoch. Lowering learning rate.')
-                self.optimizer_reset(self.learning_rate * self.learning_rate_decay_when_no_progress)
         # if self.learning_rate_decay_when_no_progress != 1.0:
-        #     self.logger.info('Lowering learning rate every 20 epochs.')
-        #     self.optimizer_reset(self.learning_rate * self.learning_rate_decay_when_no_progress)
+        #     last_epoch_start = self.step - (self.step % self.epoch_length)
+        #     if self.step - last_epoch_start <= self.eval_interval_steps and self.best_step < (
+        #             last_epoch_start - self.epoch_length):
+        #         self.logger.info('No improvement after one epoch. Lowering learning rate.')
+        #         self.optimizer_reset(self.learning_rate * self.learning_rate_decay_when_no_progress)
+        if self.learning_rate_decay_when_no_progress != 1.0:
+            self.logger.info('Lowering learning rate every 20 epochs.')
+            self.optimizer_reset(self.learning_rate * self.learning_rate_decay_when_no_progress)
         return is_best
 
     def checkpoint(self):

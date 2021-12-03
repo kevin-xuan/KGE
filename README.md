@@ -2,6 +2,7 @@
 
 * python 3.7
 * pytorch 1.8.0
+* cuda 11.1.1
 * python-gflags
 * visdom
 * tqdm

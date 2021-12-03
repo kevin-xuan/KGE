@@ -18,5 +18,13 @@ some required packages are included in *requirements.txt*.
 
 TransE
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -l2_lambda 0 -model_type transe -nohas_visualization -dataset gowalla -batch_size 256 -embedding_size 100 -learning_rate 0.001 -topn 10 -seed 3 -eval_interval_steps 9150 -training_steps 915000 -early_stopping_steps_to_wait 45750 -optimizer_type Adam -L1_flag -norm_lambda 1 -kg_lambda 1 -version scheme1
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1
+```
+TransH
+```
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1
+```
+TransR
+```
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1
 ```

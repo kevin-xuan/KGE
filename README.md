@@ -1,7 +1,3 @@
-# Unifying Knowledge Graph Learning and Recommendation Towards a Better Understanding of User Preference
-
-This is the code of the *Unifying Knowledge Graph Learning and Recommendation Towards a Better Understanding of User Preference* in WWW'19, which proposed a model that jointly train two tasks of item recommendation and KG representation learning.
-
 ## Environment
 
 * python 3.7

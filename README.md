@@ -19,10 +19,12 @@ some required packages are included in *requirements.txt*.
 
 TransE
 
-<!-- 这部分代码**scheme1**是spatial threshold为0.2km所构造的KG
+<!-- 这部分代码**scheme1**是spatial threshold为0.2km所构造的KG -->
+<!--
 ```
 python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme1
 ```
+-->
 这部分代码**scheme2**是spatial threshold为3km，然后再取top 50所构造的KG
 ``` -->
 python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2

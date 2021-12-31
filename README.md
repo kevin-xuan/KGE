@@ -40,7 +40,7 @@ python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -
 -->
 <!-- 这部分代码**scheme2**是spatial threshold为3km，然后再取top 50所构造的KG！我没有提供对应的TransE模型，**必须运行TransE保存模型之后，会得到gowalla-transe-xxxxxxxx.ckpt文件，再运行这部分代码！！！**,因此对应的**参数为-load_ckpt_file gowalla-transe-xxxxxxxx.ckpt** -->
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-xxxxxxxx.ckpt
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transh -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1639638775.ckpt
 ```
 TransR(**用预训练好的TransE模型来继续训练**)
 
@@ -52,5 +52,5 @@ python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -
 -->
 <!--这部分代码**scheme2**是spatial threshold为3km，然后再取top 50所构造的KG!我没有提供对应的TransE模型，**必须运行TransE保存模型之后，会得到gowalla-transe-xxxxxxxx.ckpt文件，再运行这部分代码！！！**,因此对应的**参数为-load_ckpt_file gowalla-transe-xxxxxxxx.ckpt**！-->
 ```
-python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transe -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1637901500.ckpt
+python run_knowledge_representation.py -data_path ./datasets/ -log_path ./log/ -kg_test_files test.txt -model_type transr -dataset gowalla -batch_size 128 -optimizer_type Adam -version scheme2 -load_ckpt_file gowalla-transe-1639638775.ckpt
 ```

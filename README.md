@@ -10,6 +10,9 @@
 * numpy
 
 some required packages are included in *requirements.txt*.
+```
+bash submit.sh
+```
 
 ## Run codes
 <!-- 先将scheme1.7z和scheme2.7z压缩文件解压到datasets/gowalla/kg/scheme1和datasets/gowalla/kg/scheme2目录下，会得到4个txt文件！

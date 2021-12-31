@@ -11,7 +11,10 @@
 
 some required packages are included in *requirements.txt*.
 ```
-bash submit.sh
+bash transh.sh
+```
+```
+bash transr.sh
 ```
 
 ## Run codes

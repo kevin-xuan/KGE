@@ -196,42 +196,45 @@ def train_loop(FLAGS, model, trainer, train_dataset, eval_datasets,
             total_loss /= (trainer.epoch_length * 20)
             logger.info("train loss:{:.4f}!".format(total_loss))
 
-            performances = []
-            for i, eval_data in enumerate(eval_datasets):
-                eval_head_dicts = None
-                eval_tail_dicts = None
-                if FLAGS.filter_wrong_corrupted:
-                    eval_head_dicts = [train_head_dict] + [tmp_data[4] for j, tmp_data in enumerate(eval_datasets) if
-                                                           j != i]
-                    eval_tail_dicts = [train_tail_dict] + [tmp_data[5] for j, tmp_data in enumerate(eval_datasets) if
-                                                           j != i]
+            # performances = []
+            # for i, eval_data in enumerate(eval_datasets):
+            #     eval_head_dicts = None
+            #     eval_tail_dicts = None
+            #     if FLAGS.filter_wrong_corrupted:
+            #         eval_head_dicts = [train_head_dict] + [tmp_data[4] for j, tmp_data in enumerate(eval_datasets) if
+            #                                                j != i]
+            #         eval_tail_dicts = [train_tail_dict] + [tmp_data[5] for j, tmp_data in enumerate(eval_datasets) if
+            #                                                j != i]
+            #
+            #     performances.append(
+            #         evaluate(FLAGS, model, entity_total, relation_total, eval_data[0], eval_data[1], eval_data[4],
+            #                  eval_data[5], eval_head_dicts, eval_tail_dicts, logger, eval_descending=False,
+            #                  is_report=is_report))
 
-                performances.append(
-                    evaluate(FLAGS, model, entity_total, relation_total, eval_data[0], eval_data[1], eval_data[4],
-                             eval_data[5], eval_head_dicts, eval_tail_dicts, logger, eval_descending=False,
-                             is_report=is_report))
+            # if trainer.step > 0 and len(performances) > 0:
+            #
+            #     is_best = trainer.new_performance(performances[0], performances)
+            #     # visualization
+            #     if vis is not None:
+            #         vis.plot_many_stack({'KG Train Loss': total_loss},
+            #                             win_name="Loss Curve")
+            #         hit_vis_dict = {}
+            #         meanrank_vis_dict = {}
+            #         for i, performance in enumerate(performances):
+            #             hit_vis_dict['KG Eval {} Hit'.format(i)] = performance[0]
+            #             meanrank_vis_dict['KG Eval {} MeanRank'.format(i)] = performance[1]
+            #
+            #         if is_best:
+            #             log_str = ["Best performances in {} step!".format(trainer.best_step)]
+            #             log_str += ["{} : {}.".format(s, "%.5f" % hit_vis_dict[s]) for s in hit_vis_dict]
+            #             log_str += ["{} : {}.".format(s, "%.5f" % meanrank_vis_dict[s]) for s in meanrank_vis_dict]
+            #             vis.log("\n".join(log_str), win_name="Best Performances")
+            #
+            #         vis.plot_many_stack(hit_vis_dict, win_name="KG Hit Ratio@{}".format(FLAGS.topn))
+            #
+            #         vis.plot_many_stack(meanrank_vis_dict, win_name="KG MeanRank")
 
-            if trainer.step > 0 and len(performances) > 0:
-                is_best = trainer.new_performance(performances[0], performances)
-                # visualization
-                if vis is not None:
-                    vis.plot_many_stack({'KG Train Loss': total_loss},
-                                        win_name="Loss Curve")
-                    hit_vis_dict = {}
-                    meanrank_vis_dict = {}
-                    for i, performance in enumerate(performances):
-                        hit_vis_dict['KG Eval {} Hit'.format(i)] = performance[0]
-                        meanrank_vis_dict['KG Eval {} MeanRank'.format(i)] = performance[1]
-
-                    if is_best:
-                        log_str = ["Best performances in {} step!".format(trainer.best_step)]
-                        log_str += ["{} : {}.".format(s, "%.5f" % hit_vis_dict[s]) for s in hit_vis_dict]
-                        log_str += ["{} : {}.".format(s, "%.5f" % meanrank_vis_dict[s]) for s in meanrank_vis_dict]
-                        vis.log("\n".join(log_str), win_name="Best Performances")
-
-                    vis.plot_many_stack(hit_vis_dict, win_name="KG Hit Ratio@{}".format(FLAGS.topn))
-
-                    vis.plot_many_stack(meanrank_vis_dict, win_name="KG MeanRank")
+            trainer.my_new_performance()
 
             # set model in training mode
             pbar = tqdm(total=trainer.epoch_length * 20)

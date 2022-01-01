@@ -21,14 +21,14 @@ import jTransUP.models.CFKG as cfkg
 
 
 def get_flags():
-    gflags.DEFINE_enum("model_type", "transr", ["transup", "bprmf", "fm",
+    gflags.DEFINE_enum("model_type", "transe", ["transup", "bprmf", "fm",
                                                 "transe", "transh", "transr", "transd",
                                                 "cfkg", "cke", "cofm", "jtransup"], "")
-    gflags.DEFINE_enum("dataset", "gowalla", ["ml1m", "dbbook2014", "amazon-book", "last-fm", "yelp2018", 'gowalla'],
+    gflags.DEFINE_enum("dataset", "foursquare", ["ml1m", "dbbook2014", "amazon-book", "last-fm", "yelp2018", 'gowalla', 'foursquare'],
                        "including ratings.csv, r2kg.tsv and a kg dictionary containing kg_hop[0-9].dat")
     gflags.DEFINE_bool(
         "filter_wrong_corrupted",
-        True,
+        False,
         "If set to True, filter test samples from train and validations.")
     gflags.DEFINE_bool("share_embeddings", False, "")
     gflags.DEFINE_bool("use_st_gumbel", False, "")
@@ -79,7 +79,7 @@ def get_flags():
     gflags.DEFINE_string("rec_test_files", None, "multiple filenames separated by ':'.")
     gflags.DEFINE_string("kg_test_files", "test.txt", "multiple filenames separated by ':'.")
     gflags.DEFINE_string("log_path", None, "")  # None "log/"
-    gflags.DEFINE_string("version", "scheme1", "")
+    gflags.DEFINE_string("version", "scheme2", "")
     gflags.DEFINE_enum("log_level", "debug", ["debug", "info"], "")
 
 
@@ -114,10 +114,10 @@ def flag_defaults(FLAGS):
         )
 
     if not FLAGS.data_path:
-        FLAGS.data_path = "../datasets/"
+        FLAGS.data_path = "./datasets/"
 
     if not FLAGS.log_path:
-        FLAGS.log_path = "../log/"
+        FLAGS.log_path = "./log/"
 
     if not FLAGS.ckpt_path:
         FLAGS.ckpt_path = FLAGS.log_path

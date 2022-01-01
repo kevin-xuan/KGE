@@ -88,6 +88,14 @@ class ModelTrainer(object):
     def optimizer_zero_grad(self):
         self.optimizer.zero_grad()
 
+    def my_new_performance(self):
+        self.logger.info("Checkpointing ...")
+        self.save(self.checkpoint_path)
+
+        if self.learning_rate_decay_when_no_progress != 1.0:
+            self.logger.info('Lowering learning rate every 20 epochs.')
+            self.optimizer_reset(self.learning_rate * self.learning_rate_decay_when_no_progress)
+
     def new_performance(self, dev_performance, performances):
         is_best = False
         # Track best dev error

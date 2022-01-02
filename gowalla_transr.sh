@@ -15,5 +15,4 @@
 module load cudnn/7.5.0-cuda10.1.105
 module load nccl/2.4.8-cuda10.1
 cd /home/hanp/hanp/research/UESTC/xuan_rao/KGE
-pip install -r requirements.txt --target=/home/hanp/anaconda3/envs/rx_torch/lib/python3.7/site-packages
 /home/hanp/anaconda3/envs/rx_torch/bin/python run_knowledge_representation.py -model_type transr -dataset gowalla -batch_size 128 -optimizer_type Adam -version gowalla_scheme2 -load_ckpt_file gowalla-transe-1639638775.ckpt

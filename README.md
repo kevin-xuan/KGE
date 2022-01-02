@@ -17,12 +17,34 @@ some required packages are included in *requirements.txt*.
 同样将gowalla_scheme2.zip放到datasets/gowalla/kg/目录下然后解压
 
 ## Run codes
-```
-bash transh.sh
+
+### gowalla
 
 ```
+bash gowalla_transh.sh
 ```
-bash transr.sh
+
+```
+bash gowalla_transr.sh
+```
+### foursquare
+
+```
+bash foursquare_scheme1_transh.sh
+```
+
+```
+bash foursquare_scheme1_transr.sh
+```
+
+```
+bash foursquare_scheme2_transh.sh
+```
+
+```
+bash foursquare_scheme2_transr.sh
+```
+
 <!-- 先将scheme1.7z和scheme2.7z压缩文件解压到datasets/gowalla/kg/scheme1和datasets/gowalla/kg/scheme2目录下，会得到4个txt文件！
 然后将gowalla-transe-1637901500.7z解压到log目录下，得到gowalla-transe-1637901500.ckpt! -->
 先将scheme2.zip压缩文件解压到datasets/gowalla/kg/scheme2目录下，会得到4个txt文件！

@@ -17,7 +17,7 @@ some required packages are included in *requirements.txt*.
 同样将gowalla_scheme2.zip放到datasets/gowalla/kg/目录下然后解压
 
 ## Run codes
-
+先运行gowalla_transh.sh，因为我在里面安装了新的第三方库(pip install -r requirements.txt)
 ### gowalla
 
 ```

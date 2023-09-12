@@ -77,9 +77,9 @@ def get_flags():
     gflags.DEFINE_string("experiment_name", None, "")
     gflags.DEFINE_string("data_path", None, "")  # None "datasets/"
     gflags.DEFINE_string("rec_test_files", None, "multiple filenames separated by ':'.")
-    gflags.DEFINE_string("kg_test_files", None, "multiple filenames separated by ':'.")  # "test.txt"
+    gflags.DEFINE_string("kg_test_files", "test.txt", "multiple filenames separated by ':'.")  # None
     gflags.DEFINE_string("log_path", None, "")  # None "log/"
-    gflags.DEFINE_string("version", "foursquare_scheme2", "")
+    gflags.DEFINE_string("version", "scheme2", "")
     gflags.DEFINE_enum("log_level", "debug", ["debug", "info"], "")
 
 

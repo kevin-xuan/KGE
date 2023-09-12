@@ -2,7 +2,7 @@
 from __future__ import division
 import numpy as np
 import math
-import pandas as pd
+# import pandas as pd
 import time
 
 def get_performance(recommend_list, purchased_list):

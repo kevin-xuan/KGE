@@ -1,0 +1,4 @@
+datasets/foursquare
+log/*.log
+log/*.ckpt
+

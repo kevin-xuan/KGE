@@ -9,7 +9,8 @@
 * pandas
 * numpy
 
-some required packages are included in *requirements.txt*.
+Some required packages are included in *requirements.txt*.
+Moreover, **datasets** and **log** folders need to be manually created (e.g., datasets/foursquare/kg/foursquare_scheme2/e_map.txt).
 
 
 ## Run codes
